@@ -1,4 +1,7 @@
+import { NextResponse } from "next/server";
+import type { NextFetchEvent, NextRequest } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { isClerkConfigured } from "@/lib/clerk-config";
 
 const isPublicRoute = createRouteMatcher([
   "/",
@@ -13,11 +16,18 @@ const isPublicRoute = createRouteMatcher([
   "/forgot-password(.*)",
 ]);
 
-export default clerkMiddleware(async (auth, request) => {
+const clerkAuthMiddleware = clerkMiddleware(async (auth, request) => {
   if (!isPublicRoute(request)) {
     await auth.protect();
   }
 });
+
+export default function middleware(request: NextRequest, event: NextFetchEvent) {
+  if (!isClerkConfigured()) {
+    return NextResponse.next();
+  }
+  return clerkAuthMiddleware(request, event);
+}
 
 export const config = {
   matcher: [

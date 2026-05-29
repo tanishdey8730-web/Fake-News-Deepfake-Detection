@@ -3,9 +3,12 @@
 import { UserProfile } from "@clerk/nextjs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DashboardHeader } from "@/components/dashboard/sidebar";
-import { Scan, Shield, Calendar } from "lucide-react";
+import { isClerkConfigured } from "@/lib/clerk-config";
+import { Scan, Shield, Calendar, User } from "lucide-react";
 
 export default function ProfilePage() {
+  const clerkEnabled = isClerkConfigured();
+
   return (
     <div>
       <DashboardHeader title="Profile" subtitle="Manage your account and view usage statistics" />
@@ -13,15 +16,27 @@ export default function ProfilePage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <Card>
-            <CardContent className="pt-6 flex justify-center">
-              <UserProfile
-                appearance={{
-                  elements: {
-                    rootBox: "w-full",
-                    card: "glass border-white/10 shadow-none w-full",
-                  },
-                }}
-              />
+            <CardContent className="pt-6">
+              {clerkEnabled ? (
+                <UserProfile
+                  appearance={{
+                    elements: {
+                      rootBox: "w-full",
+                      card: "glass border-white/10 shadow-none w-full",
+                    },
+                  }}
+                />
+              ) : (
+                <div className="flex flex-col items-center gap-4 py-8 text-center">
+                  <div className="p-4 rounded-full bg-primary/10">
+                    <User className="w-10 h-10 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-lg">Dev User</p>
+                    <p className="text-sm text-muted mt-1">Local development mode — configure Clerk for real accounts.</p>
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -46,7 +61,9 @@ export default function ProfilePage() {
           ))}
 
           <Card>
-            <CardHeader><CardTitle className="text-base">Plan</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">Plan</CardTitle>
+            </CardHeader>
             <CardContent>
               <p className="text-lg font-semibold text-gradient">Pro Plan</p>
               <p className="text-sm text-muted mt-1">Unlimited scans · API access · Priority support</p>

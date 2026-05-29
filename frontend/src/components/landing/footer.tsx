@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Shield, Github, Linkedin, X } from "lucide-react";
+import { Shield, Share2, Code2, Globe } from "lucide-react";
 
 const footerLinks = {
   Product: [
@@ -37,7 +37,7 @@ export function Footer() {
               Advanced AI-powered verification platform for digital truth detection and cyber intelligence.
             </p>
             <div className="flex gap-3">
-              {[X, Github, Linkedin].map((Icon, i) => (
+              {[Share2, Code2, Globe].map((Icon, i) => (
                 <a
                   key={i}
                   href="#"

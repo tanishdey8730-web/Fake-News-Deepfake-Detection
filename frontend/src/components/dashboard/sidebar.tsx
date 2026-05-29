@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { UserButton } from "@clerk/nextjs";
+import { UserMenu } from "@/components/auth/user-menu";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -90,7 +90,7 @@ export function DashboardSidebar() {
           <Button variant="ghost" size="icon">
             <Bell className="w-4 h-4" />
           </Button>
-          <UserButton afterSignOutUrl="/" />
+          <UserMenu />
         </div>
       </div>
     </aside>

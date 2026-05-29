@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Shield, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { isClerkConfigured } from "@/lib/clerk-config";
 
 const navLinks = [
   { href: "/#features", label: "Features" },
@@ -20,6 +21,9 @@ const navLinks = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const clerkEnabled = isClerkConfigured();
+  const signInHref = clerkEnabled ? "/sign-in" : "/dashboard";
+  const dashboardHref = clerkEnabled ? "/sign-up" : "/dashboard";
 
   return (
     <header className="fixed top-0 inset-x-0 z-50">
@@ -51,10 +55,10 @@ export function Navbar() {
 
           <div className="hidden md:flex items-center gap-3">
             <Button variant="ghost" asChild>
-              <Link href="/sign-in">Sign In</Link>
+              <Link href={signInHref}>{clerkEnabled ? "Sign In" : "Dashboard"}</Link>
             </Button>
             <Button variant="glow" asChild>
-              <Link href="/sign-up">Get Started</Link>
+              <Link href={dashboardHref}>Get Started</Link>
             </Button>
           </div>
 
@@ -83,10 +87,10 @@ export function Navbar() {
               ))}
               <div className="flex gap-2 pt-2">
                 <Button variant="secondary" className="flex-1" asChild>
-                  <Link href="/sign-in">Sign In</Link>
+                  <Link href={signInHref}>{clerkEnabled ? "Sign In" : "Dashboard"}</Link>
                 </Button>
                 <Button variant="glow" className="flex-1" asChild>
-                  <Link href="/sign-up">Get Started</Link>
+                  <Link href={dashboardHref}>Get Started</Link>
                 </Button>
               </div>
             </motion.div>
