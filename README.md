@@ -1,8 +1,10 @@
-# TruthGuard AI
+# Fake News & Deepfake Detection (TruthGuard AI)
 
 **Detect Fake News, Deepfakes & AI Manipulation Instantly**
 
-TruthGuard AI is a startup-grade cyber intelligence SaaS platform for detecting misinformation, deepfakes, AI-generated images, and AI-written text. Built with a modern full-stack architecture and premium futuristic UI.
+AI-powered platform that detects fake news, manipulated images, deepfake videos, and AI-generated text using machine learning and computer vision to enhance digital content authenticity and trustworthiness.
+
+TruthGuard AI is a startup-grade cyber intelligence SaaS platform built with a modern full-stack architecture and premium futuristic UI.
 
 ![TruthGuard AI](https://img.shields.io/badge/AI-Cyber%20Intelligence-6366f1)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
